@@ -1,74 +1,103 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { useRouter } from "expo-router";
+import { Image, StyleSheet, Platform, LogBox,  } from 'react-native';
+import { View, Text, TouchableOpacity, Alert } from 'react-native';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+function Head() { /**
+ Tem a imagem junto com a
+  */ 
+  return (
+    <View style={[styles.text, { flex: 1 }]}>
+      <Image style={[styles.img,{}]} source={require('./logo.png')}/>
+    </View>
+  );
+}
+function Footer() {
+   /**
+  Tem a escrita da inttodução do app juntamente com o botao*/
+  const router = useRouter(); // Inicializa o roteador
+  return ( 
+    
+  <View style={styles.box}>
+    <View style={styles.responsivo}>
+      <Text style={styles.text}>
+        Lorem ipsum dolor sit, amet consectetur
+        adipisicing elit. Sit deserunt ratione 
+        eveniet vel officiis repudiandae? 
+      </Text>
+    </View>
+     
+    <View >
+    
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/(tabs)/login')}>
+         <Text style={styles.butext}>Acessar</Text>
+      </TouchableOpacity>
+    </View>
+    </View>
+  );
+}
 
 export default function HomeScreen() {
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <View style={styles.container}>
+      <Head />
+      
+      <Footer/>
+    </View>
+ 
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
+  container: { // Estilos para a View principal
+    flex: 1, // Garante que a View ocupe toda a tela
+    backgroundColor: "#fffbe7", // Define a cor de fundo como um tom claro
+    justifyContent: "center", // Centraliza os elementos no eixo vertical
+    alignItems: "center", // Centraliza os elementos no eixo horizontal
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  box: { // Estilização para uma caixa dentro da tela na descrição do app
+    width: 700, // Define a largura da caixa
+    height: 250, // Define a altura da caixa
+    backgroundColor: "#002158", // Define a cor de fundo azul-escuro
+    borderTopLeftRadius: 900, // Arredonda o canto superior esquerdo
+    borderTopRightRadius: 900, // Arredonda o canto superior direito
+    justifyContent: "center", // Centraliza os elementos no eixo vertical
+    alignItems: 'center', // Centraliza os elementos no eixo horizontal
+    flex: 1, // Faz com que a caixa tente ocupar todo o espaço disponível
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  text: { // orientação da view da imagem
+    justifyContent: "center", // Centraliza o texto no eixo vertical (não tem efeito direto no Text)
+    alignItems: "center", // Centraliza o texto no eixo horizontal (não tem efeito direto no Text)
+    flexWrap: "wrap", // Permite que o texto quebre para a linha de baixo se necessário
+    color: "#e9f7ff" // Define a cor do texto 
   },
+  button: { // Estilização do botão
+    backgroundColor: "#379EFF", // Define a cor de fundo do botão como azul-claro
+    width: 300, // Define a largura do botão
+    padding: 20, // Adiciona preenchimento interno para aumentar o tamanho do botão
+    borderRadius: 10, // Arredonda as bordas do botão
+  },
+  img: { // Estilização da imagem
+    alignSelf: "center", // Centraliza a imagem dentro do seu contêiner
+    position: "absolute", // Define a posição absoluta na tela
+    bottom: 0, // Posiciona a imagem no fundo da tela
+    justifyContent: "center", // Centraliza a imagem verticalmente (não tem efeito direto em imagens)
+    width: "100%", // Faz a imagem ocupar toda a largura da tela
+    height: 270, // Define a altura da imagem
+    objectFit: "contain", // Garante que a imagem seja totalmente visível sem cortar partes
+    alignItems: "center" // (Não tem efeito em imagens, só funciona em elementos flexíveis)
+  },
+  responsivo: { // caixa que delimita o tamaho da descrição do app
+    width: 250, // Define uma largura fixa menor
+    padding: 20 // Adiciona preenchimento interno para espaçamento
+  },
+  butext: { // Estilização do texto dentro do botão
+    textAlign: "center", // Centraliza o texto horizontalmente
+    fontSize: 25, // Define um tamanho de fonte maior
+    color:"#e9f7ff"
+
+  }
 });
+
+
+
