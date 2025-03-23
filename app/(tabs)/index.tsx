@@ -1,6 +1,6 @@
 import { useRouter } from "expo-router";
 import { Image, StyleSheet, Platform, LogBox,  } from 'react-native';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, ImageBackground } from 'react-native';
 
 function Head() { /**
  Tem a imagem junto com a
@@ -16,7 +16,7 @@ function Footer() {
   Tem a escrita da inttodução do app juntamente com o botao*/
   const router = useRouter(); // Inicializa o roteador
   return ( 
-    
+   
   <View style={styles.box}>
     <View style={styles.responsivo}>
       <Text style={styles.text}>
@@ -33,16 +33,25 @@ function Footer() {
       </TouchableOpacity>
     </View>
     </View>
+    
   );
 }
 
 export default function HomeScreen() {
 
   return (
+   
+  
     <View style={styles.container}>
-      <Head />
-      
-      <Footer/>
+      <ImageBackground
+    source={require('./fundo.jpeg')} 
+   // Caminho da imagem na pasta do projeto
+   style={styles.container}>
+    <Head/>
+    <Footer/>
+    
+
+    </ImageBackground>
     </View>
  
   );
@@ -50,17 +59,14 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   container: { // Estilos para a View principal
-    flex: 1, // Garante que a View ocupe toda a tela
-    backgroundColor: "#fffbe7", // Define a cor de fundo como um tom claro
+   width:"100%",
+   height:"100%",
+    // Define a cor de fundo como um tom claro
     justifyContent: "center", // Centraliza os elementos no eixo vertical
     alignItems: "center", // Centraliza os elementos no eixo horizontal
   },
   box: { // Estilização para uma caixa dentro da tela na descrição do app
-    width: 700, // Define a largura da caixa
-    height: 250, // Define a altura da caixa
-    backgroundColor: "#002158", // Define a cor de fundo azul-escuro
-    borderTopLeftRadius: 900, // Arredonda o canto superior esquerdo
-    borderTopRightRadius: 900, // Arredonda o canto superior direito
+    
     justifyContent: "center", // Centraliza os elementos no eixo vertical
     alignItems: 'center', // Centraliza os elementos no eixo horizontal
     flex: 1, // Faz com que a caixa tente ocupar todo o espaço disponível
@@ -82,10 +88,11 @@ const styles = StyleSheet.create({
     position: "absolute", // Define a posição absoluta na tela
     bottom: 0, // Posiciona a imagem no fundo da tela
     justifyContent: "center", // Centraliza a imagem verticalmente (não tem efeito direto em imagens)
-    width: "100%", // Faz a imagem ocupar toda a largura da tela
-    height: 270, // Define a altura da imagem
+    width: "50%", // Faz a imagem ocupar toda a largura da tela
+    height: "50%", // Define a altura da imagem
     objectFit: "contain", // Garante que a imagem seja totalmente visível sem cortar partes
-    alignItems: "center" // (Não tem efeito em imagens, só funciona em elementos flexíveis)
+    alignItems: "center", // (Não tem efeito em imagens, só funciona em elementos flexíveis)
+    paddingBottom: "75%"
   },
   responsivo: { // caixa que delimita o tamaho da descrição do app
     width: 250, // Define uma largura fixa menor
