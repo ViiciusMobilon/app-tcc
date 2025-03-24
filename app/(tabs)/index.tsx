@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     height: "50%", // Define a altura da imagem
     objectFit: "contain", // Garante que a imagem seja totalmente visível sem cortar partes
     alignItems: "center", // (Não tem efeito em imagens, só funciona em elementos flexíveis)
-    paddingBottom: "75%"
+    paddingBottom: "75%",
   },
   responsivo: { // caixa que delimita o tamaho da descrição do app
     width: 250, // Define uma largura fixa menor
